@@ -1,0 +1,64 @@
+:root {
+  --primary-color: #ED3662;
+  --secondary-color: #231134;
+  --text-card-color: rgb(35, 17, 52);
+  --border-color:rgb(35, 17, 52);
+  --font-family: "Carter One", system-ui;
+  --primary-background-color: rgb(194, 145, 240);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color: #231134;
+}
+
+.header-title {
+  color: #ED3662;
+  font-family: var(--font-family);
+  font-size: 5.5rem;
+}
+
+.bg-card-primary {
+  background-color: var(--primary-background-color);
+}
+
+.col .card .card-title {
+  color: rgb(79, 56, 113);
+  font-size: 16px;
+   font-family: var(--font-family);
+}
+
+.col .card {
+  background-color: var(--primary-background-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+  border: 2px solid var(--border-color);
+  cursor: pointer;
+}
+
+.col .card .card-text {
+  color: var(--text-card-color);
+  font-size: 22.4px;
+  font-family: var(--font-family);
+  font-weight: 700;
+  transition: 0.3s;
+}
+
+.col .card .card-footer {
+  color: var(--text-card-color);
+  transition: 0.3s;
+  font-size: 16px;
+}
+
+.col .card:hover {
+  --text-card-color: RGB(92, 150, 195);
+  --primary-background-color: RGB(27, 13, 40);
+  --border-color:RGB(92, 150, 195);
+}
