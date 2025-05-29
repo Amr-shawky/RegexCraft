@@ -1,7 +1,19 @@
-        const questions = [
-            { test_text: "I found a magic scroll in the forest!", correct_pattern: "scroll" },
-            { test_text: "The pattern on the scroll was intricate.", correct_pattern: "pattern" },
-            { test_text: "Learning regex is fun!", correct_pattern: "regex" }
+     const questions = [
+            { 
+                test_text: "I have a pet, a poet, and a pot.", 
+                correct_pattern: "\\bp.*t\\b",
+                task_description: "Write a regex pattern that matches words starting with 'p' and ending with 't', with any number of characters in between, such as 'pet', 'poet', 'pot'. Use the <code>*</code> quantifier."
+            },
+            { 
+                test_text: "Error codes: 404, 200, 500, 403.", 
+                correct_pattern: "4\\d+",
+                task_description: "Write a regex pattern that matches all error codes that start with '4' followed by one or more digits, such as '404', '403'. Use the <code>+</code> quantifier."
+            },
+            { 
+                test_text: "Find the numbers: 123 456 7890 987 654321.", 
+                correct_pattern: "\\b\\d{3}\\b",
+                task_description: "Write a regex pattern that matches numbers that have exactly 3 digits, such as '123', '456', '987'. Use the <code>{}</code> quantifier."
+            }
         ];
 
         let current_question = 0;
@@ -71,7 +83,7 @@
                             text: `You've finished the chapter with a total score of ${score}/15.`,
                             icon: "success"
                         }).then(() => {
-                            window.location.href = '../levels/chapter2.html';
+                            window.location.href = '../index.html';
                         });
                     }
                 });
