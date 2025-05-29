@@ -1,18 +1,21 @@
 const questions = [
-    { 
-        test_text: "aab abb acb", 
-        correct_pattern: "a.*?b",
-        task_description: "Write a regex pattern that matches the smallest string starting with 'a' and ending with 'b'."
+    {
+        test_text: "Error: File not found\nWarning: Low disk space\nError: Access denied",
+        correct_pattern: "^Error:.*",
+        correct_flags: "m",
+        task_description: "Write a regex pattern that matches lines starting with 'Error:' using the <code>m</code> flag."
     },
-    { 
-        test_text: "<div>content</div><div>more content</div>", 
-        correct_pattern: "<div>.*?</div>",
-        task_description: "Write a regex pattern to match the smallest possible content inside <div> tags."
+    {
+        test_text: "Start\nMiddle\nEnd",
+        correct_pattern: "Start.*End",
+        correct_flags: "s",
+        task_description: "Write a regex pattern that matches the entire text from 'Start' to 'End', including newlines, using the <code>s</code> flag."
     },
-    { 
-        test_text: "12345 67890", 
-        correct_pattern: "\\d+?",
-        task_description: "Write a regex pattern to match the smallest possible sequence of digits."
+    {
+        test_text: "Line1: Hello\nLine2: World\nLine3: Regex",
+        correct_pattern: "^Line\\d:.*$",
+        correct_flags: "gm",
+        task_description: "Write a regex pattern that matches all lines in the format 'LineX: text', using the <code>m</code> and <code>g</code> flags."
     }
 ];
 
@@ -22,35 +25,40 @@ let wrong_attempts = 0;
 
 function loadQuestion() {
     const question = questions[current_question];
-    document.getElementById('test-text').innerHTML = question.test_text;
+    document.getElementById('test-text').innerHTML = question.test_text.replace(/\n/g, '<br>');
     document.getElementById('regex-input').value = '';
-    document.getElementById('result').textContent = 'Enter a regex pattern to see the result.';
+    document.getElementById('flags-input').value = '';
+    document.getElementById('result').textContent = 'Enter a regex pattern and flags to see the result.';
     document.getElementById('result').className = 'p-3 rounded';
     document.getElementById('question-number').textContent = current_question + 1;
     document.getElementById('task-instruction').innerHTML = question.task_description;
     wrong_attempts = 0;
 }
+
 function showAnswer() {
     const correct_pattern = questions[current_question].correct_pattern;
+    const correct_flags = questions[current_question].correct_flags;
     Swal.fire({
         title: "Correct Answer",
-        text: `The correct regex pattern is: ${correct_pattern}`,
+        text: `Pattern: ${correct_pattern}, Flags: ${correct_flags}`,
         icon: "info"
     });
 }
-function testRegex() {
-    const input = document.getElementById('regex-input').value;
-    const original_text = questions[current_question].test_text;
-    let display_text = original_text;
 
-    if (input === '') {
-        document.getElementById('test-text').innerHTML = original_text;
-        document.getElementById('result').textContent = 'Enter a regex pattern to see the result.';
+function testRegex() {
+    const pattern = document.getElementById('regex-input').value;
+    const flags = document.getElementById('flags-input').value;
+    const original_text = questions[current_question].test_text;
+    let display_text = original_text.replace(/\n/g, '<br>');
+
+    if (pattern === '' || flags === '') {
+        document.getElementById('test-text').innerHTML = display_text;
+        document.getElementById('result').textContent = 'Enter a regex pattern and flags to see the result.';
         document.getElementById('result').className = 'p-3 rounded';
     } else {
         try {
-            const regex = new RegExp(input, 'g');
-            display_text = original_text.replace(regex, '<span class="highlight">$&</span>');
+            const regex = new RegExp(pattern, flags);
+            display_text = original_text.replace(regex, '<span class="highlight">$&</span>').replace(/\n/g, '<br>');
             document.getElementById('test-text').innerHTML = display_text;
             const matches = original_text.match(regex);
             if (matches) {
@@ -61,18 +69,20 @@ function testRegex() {
                 document.getElementById('result').className = 'p-3 rounded bg-warning text-dark';
             }
         } catch (e) {
-            document.getElementById('test-text').innerHTML = original_text;
-            document.getElementById('result').textContent = 'Invalid regex pattern!';
+            document.getElementById('test-text').innerHTML = display_text;
+            document.getElementById('result').textContent = 'Invalid regex pattern or flags!';
             document.getElementById('result').className = 'p-3 rounded bg-danger text-white';
         }
     }
 }
 
 function checkAnswer() {
-    const input = document.getElementById('regex-input').value;
+    const pattern = document.getElementById('regex-input').value;
+    const flags = document.getElementById('flags-input').value;
     const correct_pattern = questions[current_question].correct_pattern;
+    const correct_flags = questions[current_question].correct_flags;
 
-    if (input === correct_pattern) {
+    if (pattern === correct_pattern && flags === correct_flags) {
         const points = Math.max(3, 5 - Math.floor(wrong_attempts / 2));
         score += points;
         document.getElementById('score').textContent = score;
@@ -98,12 +108,12 @@ function checkAnswer() {
         wrong_attempts++;
         Swal.fire({
             title: "Try Again!",
-            text: "The pattern is incorrect. Keep practicing!",
+            text: "The pattern or flags are incorrect. Keep practicing!",
             icon: "error"
         });
     }
 }
 
-window.onload = function() {
+window.onload = function () {
     loadQuestion();
 };

@@ -1,18 +1,18 @@
 const questions = [
-    { 
-        test_text: "aab abb acb", 
-        correct_pattern: "a.*?b",
-        task_description: "Write a regex pattern that matches the smallest string starting with 'a' and ending with 'b'."
+    {
+        test_text: "The cat sat on the mat. Catalog and scatter.",
+        correct_pattern: "\\bcat\\b",
+        task_description: "Write a regex pattern that matches the whole word 'cat'."
     },
-    { 
-        test_text: "<div>content</div><div>more content</div>", 
-        correct_pattern: "<div>.*?</div>",
-        task_description: "Write a regex pattern to match the smallest possible content inside <div> tags."
+    {
+        test_text: "The prefix is pre, but prevent is different. Preach and prepaid.",
+        correct_pattern: "\\bpre\\w*",
+        task_description: "Write a regex pattern that matches any word starting with 'pre'."
     },
-    { 
-        test_text: "12345 67890", 
-        correct_pattern: "\\d+?",
-        task_description: "Write a regex pattern to match the smallest possible sequence of digits."
+    {
+        test_text: "The cat sat on the mat. Pattern and attend.",
+        correct_pattern: "\\Bat\\B",
+        task_description: "Write a regex pattern that matches 'at' only when it is inside a larger word, not as a whole word."
     }
 ];
 
@@ -30,6 +30,7 @@ function loadQuestion() {
     document.getElementById('task-instruction').innerHTML = question.task_description;
     wrong_attempts = 0;
 }
+
 function showAnswer() {
     const correct_pattern = questions[current_question].correct_pattern;
     Swal.fire({
@@ -38,6 +39,7 @@ function showAnswer() {
         icon: "info"
     });
 }
+
 function testRegex() {
     const input = document.getElementById('regex-input').value;
     const original_text = questions[current_question].test_text;
@@ -104,6 +106,6 @@ function checkAnswer() {
     }
 }
 
-window.onload = function() {
+window.onload = function () {
     loadQuestion();
 };

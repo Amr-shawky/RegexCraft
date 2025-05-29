@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regex Craft - Chapter 3</title>
+    <title>Regex Craft - Chapter 15</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,11 +15,10 @@
     <link rel="stylesheet" href="../CSS/media.css">
 </head>
 <body>
-
     <div class="container my-5">
         <div class="text-center my-3">
-            <h2>Chapter 3: The Greedy Goblin</h2>
-            <p>Learn about Quantifiers (*, +, {}) in regex</p>
+            <h2>Chapter 15: The Global Glyph</h2>
+            <p>Learn about Unicode and flags (i, g, u) in regex</p>
         </div>
         <div class="text-center my-3 text-white">
             <h4>Score: <span id="score">0</span>/15</h4>
@@ -27,20 +26,18 @@
         <div class="card mx-auto" style="max-width: 600px;">
             <div class="card-body">
                 <h5 class="card-title">Question <span id="question-number">1</span> of 3</h5>
-                <p>In this chapter, you'll learn about <strong>quantifiers</strong> in regex. Quantifiers specify how many times a character or group can occur. The main quantifiers are:
-                <ul>
-                    <li><code>*</code>: Matches zero or more occurrences.</li>
-                    <li><code>+</code>: Matches one or more occurrences.</li>
-                    <li><code>{n}</code>: Matches exactly n occurrences.</li>
-                </ul>
-                </p>
-                <p id="task-instruction">Let's practice! Your task is to write a regex pattern that matches words starting with 'p' and ending with 't', with any number of characters in between, such as 'pet', 'poet', 'pot'. Use the <code>*</code> quantifier.</p>
-                <p id="test-text" class="p-3 bg-light rounded">I have a pet, a poet, and a pot.</p>
+                <p>In this chapter, you'll explore <strong>Unicode</strong> and <strong>flags</strong> in regex. Flags change how patterns are matched: <code>i</code> ignores case, <code>g</code> finds all matches, and <code>u</code> enables Unicode support.</p>
+                <p id="task-instruction">Let's start! Write a regex pattern that matches 'regex' regardless of case, using the <code>i</code> flag.</p>
+                <p id="test-text" class="p-3 bg-light rounded">Regex, regex, REGEX, ReGeX</p>
                 <div class="mb-3">
                     <label for="regex-input" class="form-label">Enter your regex pattern:</label>
                     <input type="text" class="form-control" id="regex-input" oninput="testRegex()" placeholder="Type your pattern here">
                 </div>
-                <p id="result" class="p-3 rounded">Enter a regex pattern to see the result.</p>
+                <div class="mb-3">
+                    <label for="flags-input" class="form-label">Enter flags (e.g., i, g, u):</label>
+                    <input type="text" class="form-control" id="flags-input" oninput="testRegex()" placeholder="Type flags here">
+                </div>
+                <p id="result" class="p-3 rounded">Enter a regex pattern and flags to see the result.</p>
                 <div class="d-flex justify-content-between">
                     <button class="btn btn-primary" onclick="checkAnswer()">Submit Answer</button>
                     <button class="btn btn-info" onclick="showAnswer()">Show Answer</button>
@@ -49,11 +46,9 @@
             </div>
         </div>
     </div>
-
-    <script src="../JS/script3.js"></script>
+    <script src="../JS/script15.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 </body>
 </html>
