@@ -1,18 +1,18 @@
 const questions = [
-    { 
-        test_text: "aab abb acb", 
-        correct_pattern: "a.*?b",
-        task_description: "Write a regex pattern that matches the smallest string starting with 'a' and ending with 'b'."
+    {
+        test_text: "Contact me at 123-456-7890.",
+        correct_pattern: "(\\d{3})-(\\d{3})-(\\d{4})",
+        task_description: "Write a regex pattern to capture the three parts of the phone number: area code, exchange code, and line number."
     },
-    { 
-        test_text: "<div>content</div><div>more content</div>", 
-        correct_pattern: "<div>.*?</div>",
-        task_description: "Write a regex pattern to match the smallest possible content inside <div> tags."
+    {
+        test_text: "The event is on 2023-12-25.",
+        correct_pattern: "(\\d{4})-(\\d{2})-(\\d{2})",
+        task_description: "Write a regex pattern to capture the year, month, and day from the date."
     },
-    { 
-        test_text: "12345 67890", 
-        correct_pattern: "\\d+?",
-        task_description: "Write a regex pattern to match the smallest possible sequence of digits."
+    {
+        test_text: "Visit https://www.example.com for more info.",
+        correct_pattern: "(https?)://(\\w+\\.\\w+\\.\\w+)",
+        task_description: "Write a regex pattern to capture the protocol (http or https) and the domain name."
     }
 ];
 
@@ -24,12 +24,13 @@ function loadQuestion() {
     const question = questions[current_question];
     document.getElementById('test-text').innerHTML = question.test_text;
     document.getElementById('regex-input').value = '';
-    document.getElementById('result').textContent = 'Enter a regex pattern to see the result.';
+    document.getElementById('result').innerHTML = 'Enter a regex pattern to see the result.';
     document.getElementById('result').className = 'p-3 rounded';
     document.getElementById('question-number').textContent = current_question + 1;
     document.getElementById('task-instruction').innerHTML = question.task_description;
     wrong_attempts = 0;
 }
+
 function showAnswer() {
     const correct_pattern = questions[current_question].correct_pattern;
     Swal.fire({
@@ -38,6 +39,7 @@ function showAnswer() {
         icon: "info"
     });
 }
+
 function testRegex() {
     const input = document.getElementById('regex-input').value;
     const original_text = questions[current_question].test_text;
@@ -45,24 +47,31 @@ function testRegex() {
 
     if (input === '') {
         document.getElementById('test-text').innerHTML = original_text;
-        document.getElementById('result').textContent = 'Enter a regex pattern to see the result.';
+        document.getElementById('result').innerHTML = 'Enter a regex pattern to see the result.';
         document.getElementById('result').className = 'p-3 rounded';
     } else {
         try {
-            const regex = new RegExp(input, 'g');
-            display_text = original_text.replace(regex, '<span class="highlight">$&</span>');
-            document.getElementById('test-text').innerHTML = display_text;
-            const matches = original_text.match(regex);
-            if (matches) {
-                document.getElementById('result').textContent = `Match found: ${matches.join(', ')}`;
+            const regex = new RegExp(input);
+            const match = original_text.match(regex);
+            if (match) {
+                const full_match = match[0];
+                const groups = match.slice(1);
+                display_text = original_text.replace(full_match, '<span class="highlight">' + full_match + '</span>');
+                document.getElementById('test-text').innerHTML = display_text;
+                let result_text = 'Match found: ' + full_match + '<br>Captured groups: ';
+                groups.forEach((group, index) => {
+                    result_text += `Group ${index + 1}: '${group}' `;
+                });
+                document.getElementById('result').innerHTML = result_text;
                 document.getElementById('result').className = 'p-3 rounded bg-success text-white';
             } else {
-                document.getElementById('result').textContent = 'No match found.';
+                document.getElementById('test-text').innerHTML = original_text;
+                document.getElementById('result').innerHTML = 'No match found.';
                 document.getElementById('result').className = 'p-3 rounded bg-warning text-dark';
             }
         } catch (e) {
             document.getElementById('test-text').innerHTML = original_text;
-            document.getElementById('result').textContent = 'Invalid regex pattern!';
+            document.getElementById('result').innerHTML = 'Invalid regex pattern!';
             document.getElementById('result').className = 'p-3 rounded bg-danger text-white';
         }
     }
@@ -104,6 +113,6 @@ function checkAnswer() {
     }
 }
 
-window.onload = function() {
+window.onload = function () {
     loadQuestion();
 };
