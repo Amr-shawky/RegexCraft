@@ -18,7 +18,14 @@ function loadQuestion() {
     document.getElementById('task-instruction').innerHTML = `Let's practice! Your task is to write a regex pattern that matches the word <strong>"${question.correct_pattern}"</strong> in the text below.`;
     wrong_attempts = 0;
 }
-
+function showAnswer() {
+    const correct_pattern = questions[current_question].correct_pattern;
+    Swal.fire({
+        title: "Correct Answer",
+        text: `The correct regex pattern is: ${correct_pattern}`,
+        icon: "info"
+    });
+}
 
 function testRegex() {
     const input = document.getElementById('regex-input').value;

@@ -30,7 +30,14 @@ function loadQuestion() {
     document.getElementById('task-instruction').innerHTML = question.task_description;
     wrong_attempts = 0;
 }
-
+function showAnswer() {
+    const correct_pattern = questions[current_question].correct_pattern;
+    Swal.fire({
+        title: "Correct Answer",
+        text: `The correct regex pattern is: ${correct_pattern}`,
+        icon: "info"
+    });
+}
 function testRegex() {
     const input = document.getElementById('regex-input').value;
     const original_text = questions[current_question].test_text;
