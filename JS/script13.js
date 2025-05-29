@@ -1,18 +1,18 @@
 const questions = [
-    { 
-        test_text: "aab abb acb", 
-        correct_pattern: "a.*?b",
-        task_description: "Write a regex pattern that matches the smallest string starting with 'a' and ending with 'b'."
+    {
+        test_text: "Contact us at support@example.com or info@example.org. Do not use admin@example.net.",
+        correct_pattern: "\\w+@\\w+\\.(?:com|org)",
+        task_description: "Write a regex pattern that matches email addresses ending with either &quot;.com&quot; or &quot;.org&quot;, using a non-capturing group for the domain extension."
     },
-    { 
-        test_text: "<div>content</div><div>more content</div>", 
-        correct_pattern: "<div>.*?</div>",
-        task_description: "Write a regex pattern to match the smallest possible content inside <div> tags."
+    {
+        test_text: "Call me at 123-456-7890 or 987-654-3210. Invalid number: 12-345-6789.",
+        correct_pattern: "(?:\\d{3}-){2}\\d{4}",
+        task_description: "Write a regex pattern that matches phone numbers in the format &quot;xxx-xxx-xxxx&quot;, where each &quot;x&quot; is a digit, using non-capturing groups for the digit groups."
     },
-    { 
-        test_text: "12345 67890", 
-        correct_pattern: "\\d+?",
-        task_description: "Write a regex pattern to match the smallest possible sequence of digits."
+    {
+        test_text: "The IP is 192.168.1.1, not 256.0.0.1 or 192.168.1.",
+        correct_pattern: "(?:\\d{1,3}\\.){3}\\d{1,3}",
+        task_description: "Write a regex pattern that matches IPv4 addresses, which consist of four numbers (each up to three digits) separated by dots, using non-capturing groups."
     }
 ];
 
@@ -30,6 +30,7 @@ function loadQuestion() {
     document.getElementById('task-instruction').innerHTML = question.task_description;
     wrong_attempts = 0;
 }
+
 function showAnswer() {
     const correct_pattern = questions[current_question].correct_pattern;
     Swal.fire({
@@ -38,6 +39,7 @@ function showAnswer() {
         icon: "info"
     });
 }
+
 function testRegex() {
     const input = document.getElementById('regex-input').value;
     const original_text = questions[current_question].test_text;
@@ -104,6 +106,6 @@ function checkAnswer() {
     }
 }
 
-window.onload = function() {
+window.onload = function () {
     loadQuestion();
 };
