@@ -1,19 +1,7 @@
 const questions = [
-    {
-        test_text: "The cat sat on the mat. The cot was comfortable. The cut was deep.",
-        correct_pattern: "c.t",
-        task_description: "Write a regex pattern that matches any three-letter word starting with 'c' and ending with 't', such as 'cat', 'cot', 'cut'."
-    },
-    {
-        test_text: "She had an ace up her sleeve. The axe was sharp. The ale was bitter.",
-        correct_pattern: "a.e",
-        task_description: "Write a regex pattern that matches any three-letter word starting with 'a' and ending with 'e', such as 'ace', 'axe', 'ale'."
-    },
-    {
-        test_text: "He hit the ball with a bat. She made a bet on the game. The drill bit was sharp. The robot was called bot. But he didn't agree.",
-        correct_pattern: "b.t",
-        task_description: "Write a regex pattern that matches any three-letter word starting with 'b' and ending with 't', such as 'bat', 'bet', 'bit'."
-    }
+    { test_text: "I found a magic scroll in the forest!", correct_pattern: "scroll" },
+    { test_text: "The pattern on the scroll was intricate.", correct_pattern: "pattern" },
+    { test_text: "Learning regex is fun!", correct_pattern: "regex" }
 ];
 
 let current_question = 0;
@@ -27,9 +15,10 @@ function loadQuestion() {
     document.getElementById('result').textContent = 'Enter a regex pattern to see the result.';
     document.getElementById('result').className = 'p-3 rounded';
     document.getElementById('question-number').textContent = current_question + 1;
-    document.getElementById('task-instruction').innerHTML = question.task_description;
+    document.getElementById('task-instruction').innerHTML = `Let's practice! Your task is to write a regex pattern that matches the word <strong>"${question.correct_pattern}"</strong> in the text below.`;
     wrong_attempts = 0;
 }
+
 
 function testRegex() {
     const input = document.getElementById('regex-input').value;
@@ -83,7 +72,7 @@ function checkAnswer() {
                     text: `You've finished the chapter with a total score of ${score}/15.`,
                     icon: "success"
                 }).then(() => {
-                    window.location.href = '../index.html';
+                    window.location.href = '../levels/chapter2.html';
                 });
             }
         });
