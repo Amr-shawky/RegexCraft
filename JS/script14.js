@@ -1,18 +1,18 @@
 const questions = [
-    { 
-        test_text: "aab abb acb", 
-        correct_pattern: "a.*?b",
-        task_description: "Write a regex pattern that matches the smallest string starting with 'a' and ending with 'b'."
+    {
+        test_text: "foo bar baz foo qux foo bar",
+        correct_pattern: "foo(?= bar)",
+        task_description: "Write a regex pattern that matches 'foo' only if it is followed by 'bar'."
     },
-    { 
-        test_text: "<div>content</div><div>more content</div>", 
-        correct_pattern: "<div>.*?</div>",
-        task_description: "Write a regex pattern to match the smallest possible content inside <div> tags."
+    {
+        test_text: "The price is $100 and $200, but not 300.",
+        correct_pattern: "(?<=\\$)\d+",
+        task_description: "Write a regex pattern that matches numbers only if they are preceded by a dollar sign."
     },
-    { 
-        test_text: "12345 67890", 
-        correct_pattern: "\\d+?",
-        task_description: "Write a regex pattern to match the smallest possible sequence of digits."
+    {
+        test_text: "test case, test run, test only, test case again, test",
+        correct_pattern: "test(?! case)",
+        task_description: "Write a regex pattern that matches 'test' only if it is not followed by 'case'."
     }
 ];
 
@@ -30,6 +30,7 @@ function loadQuestion() {
     document.getElementById('task-instruction').innerHTML = question.task_description;
     wrong_attempts = 0;
 }
+
 function showAnswer() {
     const correct_pattern = questions[current_question].correct_pattern;
     Swal.fire({
@@ -38,6 +39,7 @@ function showAnswer() {
         icon: "info"
     });
 }
+
 function testRegex() {
     const input = document.getElementById('regex-input').value;
     const original_text = questions[current_question].test_text;
@@ -104,6 +106,6 @@ function checkAnswer() {
     }
 }
 
-window.onload = function() {
+window.onload = function () {
     loadQuestion();
 };
