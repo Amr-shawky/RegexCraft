@@ -2,7 +2,7 @@
   --primary-color: #ED3662;
   --secondary-color: #231134;
   --text-card-color: rgb(35, 17, 52);
-  --border-color:rgb(35, 17, 52);
+  --border-color: rgb(35, 17, 52);
   --font-family: "Carter One", system-ui;
   --primary-background-color: rgb(194, 145, 240);
 }
@@ -31,7 +31,11 @@ body {
 .col .card .card-title {
   color: rgb(79, 56, 113);
   font-size: 16px;
-   font-family: var(--font-family);
+  font-family: var(--font-family);
+}
+
+.highlight {
+  background-color: yellow;
 }
 
 .col .card {
@@ -60,5 +64,5 @@ body {
 .col .card:hover {
   --text-card-color: RGB(92, 150, 195);
   --primary-background-color: RGB(27, 13, 40);
-  --border-color:RGB(92, 150, 195);
+  --border-color: RGB(92, 150, 195);
 }
