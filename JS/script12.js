@@ -1,18 +1,18 @@
 const questions = [
-    { 
-        test_text: "aab abb acb", 
-        correct_pattern: "a.*?b",
-        task_description: "Write a regex pattern that matches the smallest string starting with 'a' and ending with 'b'."
+    {
+        test_text: "hello hello world world test test",
+        correct_pattern: "(\\w+) \\1",
+        task_description: "Write a regex pattern to match any word that repeats twice in a row, like 'hello hello'."
     },
-    { 
-        test_text: "<div>content</div><div>more content</div>", 
-        correct_pattern: "<div>.*?</div>",
-        task_description: "Write a regex pattern to match the smallest possible content inside <div> tags."
+    {
+        test_text: "<b>bold</b> <i>italic</i> <b>bold again</b>",
+        correct_pattern: "<(\\w+)>[^<]+</\\1>",
+        task_description: "Write a regex pattern to match any HTML tag pair, like '<b>bold</b>'."
     },
-    { 
-        test_text: "12345 67890", 
-        correct_pattern: "\\d+?",
-        task_description: "Write a regex pattern to match the smallest possible sequence of digits."
+    {
+        test_text: "abba racecar deed kayak",
+        correct_pattern: "(\\w)(\\w)\\2\\1",
+        task_description: "Write a regex pattern to match any four-letter palindrome, like 'abba' or 'deed'."
     }
 ];
 
@@ -30,6 +30,7 @@ function loadQuestion() {
     document.getElementById('task-instruction').innerHTML = question.task_description;
     wrong_attempts = 0;
 }
+
 function showAnswer() {
     const correct_pattern = questions[current_question].correct_pattern;
     Swal.fire({
@@ -38,6 +39,7 @@ function showAnswer() {
         icon: "info"
     });
 }
+
 function testRegex() {
     const input = document.getElementById('regex-input').value;
     const original_text = questions[current_question].test_text;
@@ -104,6 +106,6 @@ function checkAnswer() {
     }
 }
 
-window.onload = function() {
+window.onload = function () {
     loadQuestion();
 };

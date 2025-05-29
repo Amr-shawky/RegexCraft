@@ -1,18 +1,18 @@
 const questions = [
-    { 
-        test_text: "aab abb acb", 
-        correct_pattern: "a.*?b",
-        task_description: "Write a regex pattern that matches the smallest string starting with 'a' and ending with 'b'."
+    {
+        test_text: "The cat chased the dog, but the dog ran faster than the cat.",
+        correct_pattern: "cat|dog",
+        task_description: "Write a regex pattern to match either 'cat' or 'dog'."
     },
-    { 
-        test_text: "<div>content</div><div>more content</div>", 
-        correct_pattern: "<div>.*?</div>",
-        task_description: "Write a regex pattern to match the smallest possible content inside <div> tags."
+    {
+        test_text: "Dates can be written as 12/25/2023 or 25-12-2023.",
+        correct_pattern: "\\d{2}/\\d{2}/\\d{4}|\\d{2}-\\d{2}-\\d{4}",
+        task_description: "Write a regex pattern to match dates in either 'MM/DD/YYYY' or 'DD-MM-YYYY' format."
     },
-    { 
-        test_text: "12345 67890", 
-        correct_pattern: "\\d+?",
-        task_description: "Write a regex pattern to match the smallest possible sequence of digits."
+    {
+        test_text: "The file is named report.pdf or data.csv.",
+        correct_pattern: "\\w+\\.(pdf|csv)",
+        task_description: "Write a regex pattern to match filenames ending with '.pdf' or '.csv'."
     }
 ];
 
@@ -30,6 +30,7 @@ function loadQuestion() {
     document.getElementById('task-instruction').innerHTML = question.task_description;
     wrong_attempts = 0;
 }
+
 function showAnswer() {
     const correct_pattern = questions[current_question].correct_pattern;
     Swal.fire({
@@ -38,6 +39,7 @@ function showAnswer() {
         icon: "info"
     });
 }
+
 function testRegex() {
     const input = document.getElementById('regex-input').value;
     const original_text = questions[current_question].test_text;
@@ -104,6 +106,6 @@ function checkAnswer() {
     }
 }
 
-window.onload = function() {
+window.onload = function () {
     loadQuestion();
 };
