@@ -1,3 +1,69 @@
+// Story Modal Logic
+document.addEventListener('DOMContentLoaded', function () {
+    var storyModal = new bootstrap.Modal(document.getElementById('storyModal'), {
+        backdrop: 'static', // Prevents closing by clicking outside
+        keyboard: false     // Prevents closing with the keyboard
+    });
+    storyModal.show();
+
+    const dialogue = [
+        { speaker: "Master Eldrin", text: "Welcome back, Apprentice Lyra. Today, we face the Negator’s Curse." },
+        { speaker: "Apprentice Lyra", text: "The Negator’s Curse? What’s that, Master?" },
+        { speaker: "Master Eldrin", text: "It’s a powerful tool in regex—the negated character class. It allows you to match any character except those specified." },
+        { speaker: "Apprentice Lyra", text: "So, like matching everything but certain letters?" },
+        { speaker: "Master Eldrin", text: "Exactly. For example, [^abc] matches any character that is not 'a', 'b', or 'c'." },
+        { speaker: "Apprentice Lyra", text: "That sounds useful for excluding specific characters." },
+        { speaker: "Master Eldrin", text: "Indeed. You can also use it with ranges, like [^a-z] to match any non-lowercase letter." },
+        { speaker: "Apprentice Lyra", text: "Can I use it to match anything but digits or vowels?" },
+        { speaker: "Master Eldrin", text: "Yes, for instance, [^0-9] matches any non-digit, and [^aeiou] matches any non-vowel." },
+        { speaker: "Apprentice Lyra", text: "This seems powerful. Let’s practice!" }
+    ];
+
+    let currentIndex = 0;
+    const dialogueContainer = document.getElementById('dialogue-container');
+    const nextBtn = document.getElementById('next-btn');
+
+    function showNextLine() {
+        if (currentIndex < dialogue.length) {
+            const part = dialogue[currentIndex];
+            const speakerP = document.createElement('p');
+            speakerP.className = 'fw-bold';
+            speakerP.textContent = part.speaker + ':';
+            const textP = document.createElement('p');
+            textP.id = 'typed-text-' + currentIndex;
+            dialogueContainer.appendChild(speakerP);
+            dialogueContainer.appendChild(textP);
+
+            nextBtn.disabled = true;
+
+            new Typed('#typed-text-' + currentIndex, {
+                strings: [part.text],
+                typeSpeed: 30,
+                showCursor: false,
+                onComplete: function () {
+                    if (currentIndex === dialogue.length - 1) {
+                        nextBtn.textContent = 'Continue to Chapter';
+                        nextBtn.disabled = false;
+                        nextBtn.onclick = function () {
+                            storyModal.hide();
+                        };
+                    } else {
+                        nextBtn.disabled = false;
+                    }
+                }
+            });
+            currentIndex++;
+        }
+    }
+
+    document.getElementById('storyModal').addEventListener('shown.bs.modal', function () {
+        showNextLine();
+    });
+
+    nextBtn.onclick = showNextLine;
+});
+
+// Existing Question Logic
 const questions = [
     {
         test_text: "The quick brown fox jumps over the lazy dog.",

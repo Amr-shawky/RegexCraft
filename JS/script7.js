@@ -1,3 +1,69 @@
+// Story Modal Logic
+document.addEventListener('DOMContentLoaded', function () {
+    var storyModal = new bootstrap.Modal(document.getElementById('storyModal'), {
+        backdrop: 'static', // Prevents closing by clicking outside
+        keyboard: false     // Prevents closing with the keyboard
+    });
+    storyModal.show();
+
+    const dialogue = [
+        { speaker: "Master Eldrin", text: "Welcome back, Apprentice Lyra. Today, we venture into the Digit Dungeon." },
+        { speaker: "Apprentice Lyra", text: "The Digit Dungeon? What’s that, Master?" },
+        { speaker: "Master Eldrin", text: "It’s a place where we learn about predefined character classes in regex. These are shortcuts for common patterns." },
+        { speaker: "Apprentice Lyra", text: "Shortcuts? Like what?" },
+        { speaker: "Master Eldrin", text: "For example, \\d matches any digit, \\w matches any word character, and \\s matches any whitespace." },
+        { speaker: "Apprentice Lyra", text: "That sounds efficient. So, instead of writing [0-9], I can just use \\d?" },
+        { speaker: "Master Eldrin", text: "Exactly. It makes your patterns cleaner and easier to read." },
+        { speaker: "Apprentice Lyra", text: "Are there more of these shortcuts?" },
+        { speaker: "Master Eldrin", text: "Yes, there are also uppercase versions like \\D for non-digits, \\W for non-word characters, and \\S for non-whitespace." },
+        { speaker: "Apprentice Lyra", text: "This will save me a lot of time. Let’s practice!" }
+    ];
+
+    let currentIndex = 0;
+    const dialogueContainer = document.getElementById('dialogue-container');
+    const nextBtn = document.getElementById('next-btn');
+
+    function showNextLine() {
+        if (currentIndex < dialogue.length) {
+            const part = dialogue[currentIndex];
+            const speakerP = document.createElement('p');
+            speakerP.className = 'fw-bold';
+            speakerP.textContent = part.speaker + ':';
+            const textP = document.createElement('p');
+            textP.id = 'typed-text-' + currentIndex;
+            dialogueContainer.appendChild(speakerP);
+            dialogueContainer.appendChild(textP);
+
+            nextBtn.disabled = true;
+
+            new Typed('#typed-text-' + currentIndex, {
+                strings: [part.text],
+                typeSpeed: 30,
+                showCursor: false,
+                onComplete: function () {
+                    if (currentIndex === dialogue.length - 1) {
+                        nextBtn.textContent = 'Continue to Chapter';
+                        nextBtn.disabled = false;
+                        nextBtn.onclick = function () {
+                            storyModal.hide();
+                        };
+                    } else {
+                        nextBtn.disabled = false;
+                    }
+                }
+            });
+            currentIndex++;
+        }
+    }
+
+    document.getElementById('storyModal').addEventListener('shown.bs.modal', function () {
+        showNextLine();
+    });
+
+    nextBtn.onclick = showNextLine;
+});
+
+// Existing Question Logic
 const questions = [
     {
         test_text: "The year is 2025, and there are 7 days in a week.",

@@ -1,3 +1,69 @@
+// Story Modal Logic
+document.addEventListener('DOMContentLoaded', function () {
+    var storyModal = new bootstrap.Modal(document.getElementById('storyModal'), {
+        backdrop: 'static', // Prevents closing by clicking outside
+        keyboard: false     // Prevents closing with the keyboard
+    });
+    storyModal.show();
+
+    const dialogue = [
+        { speaker: "Master Eldrin", text: "Welcome back, Apprentice Lyra. Today, we enter the Anchor Arena." },
+        { speaker: "Apprentice Lyra", text: "The Anchor Arena? What’s that, Master?" },
+        { speaker: "Master Eldrin", text: "It’s a place where we learn about anchors in regex. Anchors help us match patterns at specific positions in the text." },
+        { speaker: "Apprentice Lyra", text: "Positions? Like the start or end of a string?" },
+        { speaker: "Master Eldrin", text: "Exactly. The caret (^) matches the start of the string, and the dollar sign ($) matches the end." },
+        { speaker: "Apprentice Lyra", text: "So, if I use ^a, it will match any string that starts with 'a'?" },
+        { speaker: "Master Eldrin", text: "Yes, and a$ would match any string that ends with 'a'." },
+        { speaker: "Apprentice Lyra", text: "That’s useful for ensuring patterns are at the beginning or end." },
+        { speaker: "Master Eldrin", text: "Indeed. Anchors are crucial for precise pattern matching." },
+        { speaker: "Apprentice Lyra", text: "Let’s practice using them!" }
+    ];
+
+    let currentIndex = 0;
+    const dialogueContainer = document.getElementById('dialogue-container');
+    const nextBtn = document.getElementById('next-btn');
+
+    function showNextLine() {
+        if (currentIndex < dialogue.length) {
+            const part = dialogue[currentIndex];
+            const speakerP = document.createElement('p');
+            speakerP.className = 'fw-bold';
+            speakerP.textContent = part.speaker + ':';
+            const textP = document.createElement('p');
+            textP.id = 'typed-text-' + currentIndex;
+            dialogueContainer.appendChild(speakerP);
+            dialogueContainer.appendChild(textP);
+
+            nextBtn.disabled = true;
+
+            new Typed('#typed-text-' + currentIndex, {
+                strings: [part.text],
+                typeSpeed: 30,
+                showCursor: false,
+                onComplete: function () {
+                    if (currentIndex === dialogue.length - 1) {
+                        nextBtn.textContent = 'Continue to Chapter';
+                        nextBtn.disabled = false;
+                        nextBtn.onclick = function () {
+                            storyModal.hide();
+                        };
+                    } else {
+                        nextBtn.disabled = false;
+                    }
+                }
+            });
+            currentIndex++;
+        }
+    }
+
+    document.getElementById('storyModal').addEventListener('shown.bs.modal', function () {
+        showNextLine();
+    });
+
+    nextBtn.onclick = showNextLine;
+});
+
+// Existing Question Logic
 const questions = [
     {
         test_text: "apple banana apricot cherry date",
