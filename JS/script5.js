@@ -1,3 +1,69 @@
+// Story Modal Logic
+document.addEventListener('DOMContentLoaded', function () {
+    var storyModal = new bootstrap.Modal(document.getElementById('storyModal'), {
+        backdrop: 'static', // Prevents closing by clicking outside
+        keyboard: false     // Prevents closing with the keyboard
+    });
+    storyModal.show();
+
+    const dialogue = [
+        { speaker: "Master Eldrin", text: "Welcome back, Apprentice Lyra. Today, we enter the Character Cage." },
+        { speaker: "Apprentice Lyra", text: "The Character Cage? What's that, Master?" },
+        { speaker: "Master Eldrin", text: "It's a metaphor for character classes in regex. They allow you to match any one character from a set of characters." },
+        { speaker: "Apprentice Lyra", text: "Like matching specific letters or numbers?" },
+        { speaker: "Master Eldrin", text: "Exactly. For example, [abc] matches 'a', 'b', or 'c'." },
+        { speaker: "Apprentice Lyra", text: "That seems useful for when you need to match multiple possibilities." },
+        { speaker: "Master Eldrin", text: "Indeed. You can also use ranges, like [a-z] for any lowercase letter." },
+        { speaker: "Apprentice Lyra", text: "Can I combine them, like [a-zA-Z] for any letter?" },
+        { speaker: "Master Eldrin", text: "Yes, and you can include other characters too, like [a-zA-Z0-9] for alphanumerics." },
+        { speaker: "Apprentice Lyra", text: "This opens up a lot of possibilities. Let's practice!" }
+    ];
+
+    let currentIndex = 0;
+    const dialogueContainer = document.getElementById('dialogue-container');
+    const nextBtn = document.getElementById('next-btn');
+
+    function showNextLine() {
+        if (currentIndex < dialogue.length) {
+            const part = dialogue[currentIndex];
+            const speakerP = document.createElement('p');
+            speakerP.className = 'fw-bold';
+            speakerP.textContent = part.speaker + ':';
+            const textP = document.createElement('p');
+            textP.id = 'typed-text-' + currentIndex;
+            dialogueContainer.appendChild(speakerP);
+            dialogueContainer.appendChild(textP);
+
+            nextBtn.disabled = true;
+
+            new Typed('#typed-text-' + currentIndex, {
+                strings: [part.text],
+                typeSpeed: 30,
+                showCursor: false,
+                onComplete: function () {
+                    if (currentIndex === dialogue.length - 1) {
+                        nextBtn.textContent = 'Continue to Chapter';
+                        nextBtn.disabled = false;
+                        nextBtn.onclick = function () {
+                            storyModal.hide();
+                        };
+                    } else {
+                        nextBtn.disabled = false;
+                    }
+                }
+            });
+            currentIndex++;
+        }
+    }
+
+    document.getElementById('storyModal').addEventListener('shown.bs.modal', function () {
+        showNextLine();
+    });
+
+    nextBtn.onclick = showNextLine;
+});
+
+// Existing Question Logic
 const questions = [
     {
         test_text: "The cat sat on the mat. The dog barked. Birds flew in the sky.",
