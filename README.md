@@ -14,3 +14,7 @@ Regex Craft transforms the complex world of regex into an engaging experience. E
 - **Scoring System**: Earn points for correct answers, with a maximum of 15 points per chapter.
 - **Responsive Design**: Built with Bootstrap, ensuring compatibility across devices.
 - **Skip Option**: Bypass story dialogues to dive straight into challenges.
+  
+## Deployment
+
+Play the game live at: [https://amr-shawky.github.io/RegexCraft/](https://amr-shawky.github.io/RegexCraft/)
