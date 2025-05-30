@@ -66,3 +66,7 @@ body {
   --primary-background-color: RGB(27, 13, 40);
   --border-color: RGB(92, 150, 195);
 }
+.container .my-3 h2,
+.container .my-3 p {
+  color: var(--primary-color);
+}
