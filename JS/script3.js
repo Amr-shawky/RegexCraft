@@ -1,3 +1,76 @@
+// Story Modal Logic
+document.addEventListener('DOMContentLoaded', function () {
+    // Initialize and show the modal on page load
+    var storyModal = new bootstrap.Modal(document.getElementById('storyModal'), {
+        backdrop: 'static', // Prevents closing by clicking outside
+        keyboard: false     // Prevents closing with the keyboard
+    });
+    storyModal.show();
+
+    // Dialogue array for Chapter 3
+    const dialogue = [
+        { speaker: "Master Eldrin", text: "Welcome back, Apprentice Lyra. Today, we face the Greedy Goblin, a creature obsessed with hoarding treasures." },
+        { speaker: "Apprentice Lyra", text: "A goblin? How does that relate to regex, Master?" },
+        { speaker: "Master Eldrin", text: "The goblin represents quantifiers in regex—symbols that control how many times a pattern can repeat. They can be greedy, taking as much as they can." },
+        { speaker: "Apprentice Lyra", text: "Greedy? What does that mean in regex terms?" },
+        { speaker: "Master Eldrin", text: "Quantifiers like '*', '+', and '{}' allow patterns to match multiple characters. For example, 'a*' matches zero or more 'a's, and 'a+' matches one or more." },
+        { speaker: "Apprentice Lyra", text: "So, they can match different lengths of text?" },
+        { speaker: "Master Eldrin", text: "Exactly. And '{}' lets you specify exact numbers, like '{3}' for exactly three occurrences." },
+        { speaker: "Apprentice Lyra", text: "That sounds powerful! But how do I use them in patterns?" },
+        { speaker: "Master Eldrin", text: "Let's practice. You'll use quantifiers to match words with varying lengths. Be mindful of their greed!" }
+    ];
+
+    let currentIndex = 0;
+    const dialogueContainer = document.getElementById('dialogue-container');
+    const nextBtn = document.getElementById('next-btn');
+
+    function showNextLine() {
+        if (currentIndex < dialogue.length) {
+            const part = dialogue[currentIndex];
+            // Create speaker and text elements
+            const speakerP = document.createElement('p');
+            speakerP.className = 'fw-bold';
+            speakerP.textContent = part.speaker + ':';
+            const textP = document.createElement('p');
+            textP.id = 'typed-text-' + currentIndex;
+            dialogueContainer.appendChild(speakerP);
+            dialogueContainer.appendChild(textP);
+
+            // Disable "Next" button while typing
+            nextBtn.disabled = true;
+
+            // Use Typed.js for typing effect
+            new Typed('#typed-text-' + currentIndex, {
+                strings: [part.text],
+                typeSpeed: 30,
+                showCursor: false,
+                onComplete: function () {
+                    // Enable "Next" button or change to "Continue" at the end
+                    if (currentIndex === dialogue.length - 1) {
+                        nextBtn.textContent = 'Continue to Chapter';
+                        nextBtn.disabled = false;
+                        nextBtn.onclick = function () {
+                            storyModal.hide();
+                        };
+                    } else {
+                        nextBtn.disabled = false;
+                    }
+                }
+            });
+            currentIndex++;
+        }
+    }
+
+    // Start the dialogue when the modal is shown
+    document.getElementById('storyModal').addEventListener('shown.bs.modal', function () {
+        showNextLine();
+    });
+
+    // Handle "Next" button clicks
+    nextBtn.onclick = showNextLine;
+});
+
+// Existing Question Logic
 const questions = [
     {
         test_text: "I have a pet, a poet, and a pot.",
@@ -30,6 +103,7 @@ function loadQuestion() {
     document.getElementById('task-instruction').innerHTML = question.task_description;
     wrong_attempts = 0;
 }
+
 function showAnswer() {
     const correct_pattern = questions[current_question].correct_pattern;
     Swal.fire({
@@ -38,6 +112,7 @@ function showAnswer() {
         icon: "info"
     });
 }
+
 function testRegex() {
     const input = document.getElementById('regex-input').value;
     const original_text = questions[current_question].test_text;

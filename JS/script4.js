@@ -1,3 +1,68 @@
+// Story Modal Logic
+document.addEventListener('DOMContentLoaded', function () {
+    var storyModal = new bootstrap.Modal(document.getElementById('storyModal'), {
+        backdrop: 'static', // Prevents closing by clicking outside
+        keyboard: false     // Prevents closing with the keyboard
+    });
+    storyModal.show();
+
+    const dialogue = [
+        { speaker: "Master Eldrin", text: "Welcome back, Apprentice Lyra. Today, we learn about the Lazy Blade." },
+        { speaker: "Apprentice Lyra", text: "The Lazy Blade? What's that, Master?" },
+        { speaker: "Master Eldrin", text: "It's a metaphor for lazy quantifiers in regex. They match as few characters as possible, unlike their greedy counterparts." },
+        { speaker: "Apprentice Lyra", text: "Greedy counterparts? What do you mean?" },
+        { speaker: "Master Eldrin", text: "Remember the Greedy Goblin from the last chapter? Quantifiers like '*' and '+' are greedy by default, meaning they match as much as possible." },
+        { speaker: "Apprentice Lyra", text: "Oh, right! So lazy quantifiers do the opposite?" },
+        { speaker: "Master Eldrin", text: "Exactly. By adding a '?' after a quantifier, like '*?' or '+?', it becomes lazy, matching as little as possible." },
+        { speaker: "Apprentice Lyra", text: "That sounds useful. When would I use a lazy quantifier?" },
+        { speaker: "Master Eldrin", text: "For example, when you want to match the smallest possible string between two characters. Let's practice with some examples." }
+    ];
+
+    let currentIndex = 0;
+    const dialogueContainer = document.getElementById('dialogue-container');
+    const nextBtn = document.getElementById('next-btn');
+
+    function showNextLine() {
+        if (currentIndex < dialogue.length) {
+            const part = dialogue[currentIndex];
+            const speakerP = document.createElement('p');
+            speakerP.className = 'fw-bold';
+            speakerP.textContent = part.speaker + ':';
+            const textP = document.createElement('p');
+            textP.id = 'typed-text-' + currentIndex;
+            dialogueContainer.appendChild(speakerP);
+            dialogueContainer.appendChild(textP);
+
+            nextBtn.disabled = true;
+
+            new Typed('#typed-text-' + currentIndex, {
+                strings: [part.text],
+                typeSpeed: 30,
+                showCursor: false,
+                onComplete: function () {
+                    if (currentIndex === dialogue.length - 1) {
+                        nextBtn.textContent = 'Continue to Chapter';
+                        nextBtn.disabled = false;
+                        nextBtn.onclick = function () {
+                            storyModal.hide();
+                        };
+                    } else {
+                        nextBtn.disabled = false;
+                    }
+                }
+            });
+            currentIndex++;
+        }
+    }
+
+    document.getElementById('storyModal').addEventListener('shown.bs.modal', function () {
+        showNextLine();
+    });
+
+    nextBtn.onclick = showNextLine;
+});
+
+// Existing Question Logic
 const questions = [
     { 
         test_text: "aab abb acb", 
@@ -30,6 +95,7 @@ function loadQuestion() {
     document.getElementById('task-instruction').innerHTML = question.task_description;
     wrong_attempts = 0;
 }
+
 function showAnswer() {
     const correct_pattern = questions[current_question].correct_pattern;
     Swal.fire({
@@ -38,6 +104,7 @@ function showAnswer() {
         icon: "info"
     });
 }
+
 function testRegex() {
     const input = document.getElementById('regex-input').value;
     const original_text = questions[current_question].test_text;
