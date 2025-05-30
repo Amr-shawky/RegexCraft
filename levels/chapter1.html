@@ -5,14 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Regex Craft - Chapter 1</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Poppins:wght@400;600&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Carter+One&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400;1,700&family=Carter+One&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link href="../CSS/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../CSS/all.min.css">
     <link rel="stylesheet" href="../CSS/style.css">
@@ -20,7 +17,22 @@
 </head>
 
 <body>
-
+    <div class="modal fade" id="storyModal" tabindex="-1" aria-labelledby="storyModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="storyModalLabel">Chapter 1: The Pattern Scroll</h5>
+                </div>
+                <div class="modal-body">
+                    <div id="dialogue-container"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Skip Story</button>
+                    <button type="button" class="btn btn-primary" id="next-btn">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container my-5">
         <div class="text-center my-3">
             <h2>Chapter 1: The Pattern Scroll</h2>
@@ -32,16 +44,12 @@
         <div class="card mx-auto" style="max-width: 600px;">
             <div class="card-body">
                 <h5 class="card-title">Question <span id="question-number">1</span> of 3</h5>
-                <p>In this chapter, you'll learn about <strong>literal characters</strong> in regex. A literal character
-                    matches exactly the character you type. For example, the regex pattern <code>cat</code> matches
-                    "cat", but not "cap" or "cot".</p>
-                <p id="task-instruction">Let's practice! Your task is to write a regex pattern that matches the word
-                    <strong>"scroll"</strong> in the text below.</p>
+                <p>In this chapter, you'll learn about <strong>literal characters</strong> in regex. A literal character matches exactly the character you type. For example, the regex pattern <code>cat</code> matches "cat", but not "cap" or "cot".</p>
+                <p id="task-instruction">Let's practice! Your task is to write a regex pattern that matches the word <strong>"scroll"</strong> in the text below.</p>
                 <p id="test-text" class="p-3 bg-light rounded">I found a magic scroll in the forest!</p>
                 <div class="mb-3">
                     <label for="regex-input" class="form-label">Enter your regex pattern:</label>
-                    <input type="text" class="form-control" id="regex-input" oninput="testRegex()"
-                        placeholder="Type your pattern here">
+                    <input type="text" class="form-control" id="regex-input" oninput="testRegex()" placeholder="Type your pattern here">
                 </div>
                 <p id="result" class="p-3 rounded">Enter a regex pattern to see the result.</p>
                 <div class="d-flex justify-content-between">
@@ -52,13 +60,12 @@
             </div>
         </div>
     </div>
-    </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <script src="../JS/script1.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 </body>
 
 </html>

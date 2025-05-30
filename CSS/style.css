@@ -70,3 +70,7 @@ body {
 .container .my-3 p {
   color: var(--primary-color);
 }
+.modal-backdrop {
+    background-color: black !important;
+    opacity: 1 !important;
+}
