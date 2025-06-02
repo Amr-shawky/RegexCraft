@@ -2,9 +2,12 @@
   --primary-color: #8B4513; /* Saddle brown for crafting feel */
   --secondary-color: #228B22; /* Forest green for accents */
   --text-card-color: #333; /* Dark gray for readability */
-  --border-color: #8B4513; /* Brown border */
+  --border-color: #8B0082; /* Updated to dark purple for borders */
   --font-family: "Carter One", cursive; /* Handcrafted font */
   --primary-background-color: #F5F5DC; /* Beige for parchment */
+  --modal-title-color: #FF69B4; /* Pink from the first image */
+  --button-bg-color: #4B0082; /* Purple from the "Begin" button */
+  --button-text-color: #FFFFFF; /* White text for buttons */
 }
 
 * {
@@ -72,7 +75,126 @@ body {
   color: var(--primary-color);
 }
 
+/* Story Introduction Modal */
+.modal-fullscreen .modal-content {
+  background: linear-gradient(to bottom, #FF4D6D, #1C2526); /* Gradient sky: pinkish-red to dark purple */
+  border: 5px solid var(--border-color); /* Dark purple border */
+  color: white; /* Default text color */
+  height: 100vh; /* Full viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Space out dialogue and controls */
+}
+
+.dialogue-section {
+  padding: 20px;
+  flex-grow: 1; /* Takes up available space */
+  overflow-y: auto; /* Scrollable if dialogue overflows */
+  font-family: 'Poppins', sans-serif; /* Clean sans-serif font */
+}
+
+.dialogue-section p {
+  margin: 10px 0;
+}
+
+.dialogue-section .fw-bold {
+  color: #FF4D6D; /* Reddish-pink for speaker names */
+  font-family: 'Orbitron', sans-serif; /* Bold, futuristic font */
+}
+
+.modal-controls {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--button-bg-color); /* Dark purple background */
+}
+
+.btn-primary, .btn-secondary {
+  background-color: var(--button-bg-color); /* Dark purple */
+  color: var(--button-text-color);
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Subtle shadow effect */
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+  background-color: #6A0DAD; /* Lighter purple on hover */
+}
+
+/* Chapter Content */
+.chapter-container {
+  background: linear-gradient(to bottom, #FF4D6D, #1C2526); /* Gradient sky */
+  min-height: 100vh; /* Full height */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically center content */
+}
+
+.chapter-intro {
+  color: white;
+}
+
+.chapter-intro h2 {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  color: #FF4D6D; /* Reddish-pink */
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.chapter-intro p {
+  font-family: 'Poppins', sans-serif;
+  color: #00CED1; /* Light cyan */
+  font-size: 1.25rem;
+  margin-bottom: 30px;
+}
+
+#start-chapter {
+  background-color: var(--button-bg-color); /* Dark purple */
+  color: var(--button-text-color);
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+#start-chapter:hover {
+  background-color: #6A0DAD; /* Lighter purple on hover */
+}
+
+.chapter-content {
+  color: white;
+}
+
+.chapter-content h4 {
+  font-family: 'Orbitron', sans-serif;
+  color: #FF4D6D;
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white */
+  border: none;
+  color: white;
+}
+
+.card .btn-primary, .card .btn-info, .card .btn-secondary {
+  background-color: var(--button-bg-color);
+  color: var(--button-text-color);
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+
+.card .btn-primary:hover, .card .btn-info:hover, .card .btn-secondary:hover {
+  background-color: #6A0DAD;
+}
+
+/* Modal Backdrop */
 .modal-backdrop {
-    background-color: black !important;
-    opacity: 1 !important;
+  background-color: black !important;
+  opacity: 1 !important;
 }
