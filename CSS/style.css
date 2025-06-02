@@ -1,27 +1,28 @@
 :root {
-  --primary-color: #ED3662;
-  --secondary-color: #231134;
-  --text-card-color: rgb(35, 17, 52);
-  --border-color: rgb(35, 17, 52);
-  --font-family: "Carter One", system-ui;
-  --primary-background-color: rgb(194, 145, 240);
+  --primary-color: #8B4513; /* Saddle brown for crafting feel */
+  --secondary-color: #228B22; /* Forest green for accents */
+  --text-card-color: #333; /* Dark gray for readability */
+  --border-color: #8B4513; /* Brown border */
+  --font-family: "Carter One", cursive; /* Handcrafted font */
+  --primary-background-color: #F5F5DC; /* Beige for parchment */
 }
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Georgia', serif; /* Serif font for body text */
 }
 
 body {
-  background-color: #231134;
+  background-color: #231134; /* Keep original dark background */
 }
 
 .header-title {
-  color: #ED3662;
+  color: var(--primary-color);
   font-family: var(--font-family);
   font-size: 5.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Add prominence */
 }
 
 .bg-card-primary {
@@ -29,7 +30,7 @@ body {
 }
 
 .col .card .card-title {
-  color: rgb(79, 56, 113);
+  color: var(--primary-color);
   font-size: 16px;
   font-family: var(--font-family);
 }
@@ -42,7 +43,7 @@ body {
   background-color: var(--primary-background-color);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: 0.3s;
+  transition: transform 0.3s, background-color 0.3s, border-color 0.3s;
   border: 2px solid var(--border-color);
   cursor: pointer;
 }
@@ -52,24 +53,25 @@ body {
   font-size: 22.4px;
   font-family: var(--font-family);
   font-weight: 700;
-  transition: 0.3s;
 }
 
 .col .card .card-footer {
   color: var(--text-card-color);
-  transition: 0.3s;
   font-size: 16px;
 }
 
 .col .card:hover {
-  --text-card-color: RGB(92, 150, 195);
-  --primary-background-color: RGB(27, 13, 40);
-  --border-color: RGB(92, 150, 195);
+  transform: scale(1.05); /* Slight scale for crafting interactivity */
+  --text-card-color: var(--secondary-color);
+  --primary-background-color: #FFF8DC; /* Lighter beige on hover */
+  --border-color: var(--secondary-color);
 }
+
 .container .my-3 h2,
 .container .my-3 p {
   color: var(--primary-color);
 }
+
 .modal-backdrop {
     background-color: black !important;
     opacity: 1 !important;
